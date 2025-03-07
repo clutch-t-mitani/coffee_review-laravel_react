@@ -1,6 +1,5 @@
 import MainLayout from "@/Layouts/MainLayout";
-import { Box, Heading, VStack, HStack, Image, Text } from "@chakra-ui/react";
-import { StarIcon } from "@chakra-ui/icons";
+import { Box, Heading, Image, Text } from "@chakra-ui/react";
 import ReviewList from "@/Components/Organisms/ReviewList";
 
 const Detail = (props) => {
