@@ -1,7 +1,8 @@
-import { Box, Heading, VStack, HStack, Image, Text} from "@chakra-ui/react";
+import { Box, Heading, VStack, HStack, Image, Text, Link} from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 import React from "react";
 import MainLayout from "@/Layouts/MainLayout";
+import ReviewList from "@/Components/Organisms/ReviewList";
 
 const Home = (props) => {
     return (
@@ -20,26 +21,28 @@ const Home = (props) => {
                 >
                     {props.shops.map((shop) =>
                         (
-                            <Box key={shop.id}
-                            p={4}
-                            borderWidth={"1px"}
-                            borderRadius={"lg"}
-                            overflow={"hidden"} // ボックスの内容がボックスの境界を超えた場合に、超えた部分を隠します。
-                            boxShadow={"lg"}>
-                                <HStack spacing={4}>
-                                    <Image
-                                    boxSize="100px"
-                                    objectFit="cover"
-                                    src="https://bit.ly/sage-adebayo"
-                                    alt={shop.name} />
-                                    <VStack align={"start"}>
-                                        <Heading as="h3" size="md">
-                                            {shop.name}
-                                        </Heading>
-                                        <Text>{shop.description}</Text>
-                                    </VStack>
-                                </HStack>
-                            </Box>
+                            <Link href={`/shop/${shop.id}`} key={shop.id} _hover={{color: "gray.500"}}>
+                                <Box key={shop.id}
+                                p={4}
+                                borderWidth={"1px"}
+                                borderRadius={"lg"}
+                                overflow={"hidden"} // ボックスの内容がボックスの境界を超えた場合に、超えた部分を隠します。
+                                boxShadow={"lg"}>
+                                    <HStack spacing={4}>
+                                        <Image
+                                        boxSize="100px"
+                                        objectFit="cover"
+                                        src="https://bit.ly/sage-adebayo"
+                                        alt={shop.name} />
+                                        <VStack align={"start"}>
+                                            <Heading as="h3" size="md">
+                                                {shop.name}
+                                            </Heading>
+                                            <Text>{shop.description}</Text>
+                                        </VStack>
+                                    </HStack>
+                                </Box>
+                            </Link>
                         )
                     )}
                 </VStack>
@@ -53,31 +56,7 @@ const Home = (props) => {
                 </Heading>
                 {/* align={"stretch"} 長さが統一できる*/}
                 <VStack spacing={4} align={"stretch"}>
-                    {props.newReviews.map((review) => (
-                        <Box key={review.id}
-                            p={4}
-                            borderWidth={"1px"}
-                            borderRadius={"lg"}
-                            overflow={"hidden"} // ボックスの内容がボックスの境界を超えた場合に、超えた部分を隠します。
-                            boxShadow={"lg"}
-                        >
-                            {/* align={"start"}  子要素を左揃えにするための設定です。*/}
-                            <VStack align={"start"}>
-                                <Text fontWeight={"bold"}>{review.user.name}</Text>
-                                <Text>{review.comment}</Text>
-                                <HStack spacing={1}>
-                                    {Array(5)
-                                        .fill("")
-                                        .map((_, i) => (
-                                            <StarIcon
-                                                key={i}
-                                                color={i < review.rating ? "yellow.500" : "gray.300"}
-                                            />
-                                        ))}
-                                </HStack>
-                            </VStack>
-                        </Box>
-                    ))}
+                    <ReviewList reviews={props.newReviews} />
                 </VStack>
             </Box>
         </>
